@@ -6,9 +6,9 @@ import AppPage from "@/common/component/pages/AppPage";
 import {useRouter} from "next/router";
 import {getUserScopeText} from "@/module/user/UserScope";
 import styled from "@emotion/styled";
-import UserForm from "@/common/component/ui/forms/UserForm";
+import UserForm from "@/common/component/form/old-form/UserForm";
 import {useState} from "react";
-import Table from "@/common/component/ui/tables/StyledTable";
+import Table from "@/common/component/tables/StyledTable";
 import classToDto from "@/common/util/ClassToDto";
 import { Button } from "@mui/material";
 

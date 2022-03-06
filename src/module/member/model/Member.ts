@@ -1,4 +1,4 @@
-import {DataModel} from "../firestore/DataModel";
+import {DataModel} from "../../firestore/DataModel";
 import {VaccinationStatus} from "./VaccinationStatus";
 
 /**

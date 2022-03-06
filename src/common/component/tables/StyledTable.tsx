@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import {ReactNode} from "react";
-import {CustomComponentProps} from "../../../util/CustomComponentProps";
+import {CustomComponentProps} from "../util/CustomComponentProps";
 import {useTheme} from "@emotion/react";
 
 // TODO: Fix

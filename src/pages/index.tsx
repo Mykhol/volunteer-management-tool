@@ -3,6 +3,8 @@ import type { NextPage } from 'next';
 import FullPageContainer from "@/common/component/container/FullPageContainer";
 import Link from 'next/link'
 import styled from "@emotion/styled";
+import BaseForm from "@/common/component/form/BaseForm";
+import MemberForm from "@/module/member/component/MemberForm";
 
 const Test = styled.div`
 
@@ -14,11 +16,9 @@ const Test = styled.div`
 
 const Home: NextPage = () => {
     return (
-        <FullPageContainer>
-            <Test />
-            <Link href={"/auth"}><h2>Log in to get started</h2></Link>
-            <p>* Please use your PYF Google Account</p>
-        </FullPageContainer>
+            <MemberForm>
+
+            </MemberForm>
     )
 }
 

@@ -1,9 +1,9 @@
-import {FirestoreService} from "../firestore/FirestoreService";
-import {Member} from "./Member";
-import {FirebaseAdminService} from "../firestore/FirebaseAdminService";
-import {FirestoreCollection} from "../firestore/FirestoreCollection";
-import {User} from "../user/User";
-import {dataConverter} from "../firestore/DataConverter";
+import {FirestoreService} from "../../firestore/FirestoreService";
+import {Member} from "../model/Member";
+import {FirebaseAdminService} from "../../firestore/FirebaseAdminService";
+import {FirestoreCollection} from "../../firestore/FirestoreCollection";
+import {User} from "../../user/User";
+import {dataConverter} from "../../firestore/DataConverter";
 
 export class MemberService extends FirestoreService<Member> {
 

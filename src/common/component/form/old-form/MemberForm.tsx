@@ -1,15 +1,10 @@
-import {VaccinationStatus} from "../../../../module/member/VaccinationStatus";
-import BaseForm from "./BaseForm";
 import {useState} from "react";
-import {Member} from "../../../../module/member/Member";
+import {Member} from "@/module/member/model/Member";
 import styled from "@emotion/styled";
-import Button, {ButtonSize, ButtonStyle} from "../Button";
-import {CustomComponentProps} from "../../../util/CustomComponentProps";
+import {CustomComponentProps} from "../../util/CustomComponentProps";
 import "@/common/util/isSuccessful"
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import {TextField} from "@mui/material";
-import CustomTextField from "../mui/TextField";
 import NewMemberForm from "./new-forms/NewMemberForm";
 
 interface MemberFormProps extends CustomComponentProps {

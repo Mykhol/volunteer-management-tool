@@ -9,13 +9,15 @@ const SubNavigationContainer = styled.div`
 
   padding: 0 100px;
 
-  background-color: ${props => props.theme.palette.primary.main};
+  background-color: ${props => props.theme.palette.primary.light};
 
   display: flex;
   flex-direction: row;
 
   align-items: center;
   justify-content: space-between;
+  
+  color: ${props => props.theme.palette.primary.dark};
 
   ul {
 

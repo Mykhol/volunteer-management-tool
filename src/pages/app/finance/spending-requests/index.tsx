@@ -1,16 +1,14 @@
-import AppPage from "../../../../common/component/pages/AppPage";
+import AppPage from "@/common/component/pages/AppPage";
 import {GetServerSidePropsContext} from "next";
-import {FirebaseAdminService} from "../../../../module/firestore/FirebaseAdminService";
+import {FirebaseAdminService} from "@/module/firestore/FirebaseAdminService";
 import classToDto from "@/common/util/ClassToDto";
-import {SpendingRequestService} from "../../../../module/spending-request/SpendingRequestService";
-import StyledTable from "../../../../common/component/ui/tables/StyledTable";
-import Table from "../../../../common/component/ui/tables/StyledTable";
-import {SpendingRequest} from "../../../../module/spending-request/SpendingRequest";
-import {SpendingRequestDataView} from "../../../../common/component/ui/forms/SpendingRequestDataView";
+import {SpendingRequestService} from "@/module/spending-request/SpendingRequestService";
+import StyledTable from "@/common/component/tables/StyledTable";
+import Table from "@/common/component/tables/StyledTable";
+import {SpendingRequest} from "@/module/spending-request/SpendingRequest";
+import {SpendingRequestDataView} from "@/common/component/form/old-form/SpendingRequestDataView";
 import {useState} from "react";
 import styled from "@emotion/styled";
-import Button from "../../../../common/component/ui/Button";
-import {useRouter} from "next/router";
 
 const UsersContent = styled.div`
 
@@ -21,12 +19,7 @@ const UsersContent = styled.div`
   ${Table} {
     margin-right: 100px;
   }
-
-  > div {
-    ${Button} {
-      margin-top: 30px;
-    }
-  }
+  
 `
 
 const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {

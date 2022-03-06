@@ -1,10 +1,11 @@
 import {NextApiHandler, NextApiRequest, NextApiResponse} from "next";
-import {TypeFormWebhook, TypeFormWebhookProps} from "../../../module/typeform/TypeFormWebhook";
-import {SpendingRequest} from "../../../module/spending-request/SpendingRequest";
-import {SpendingRequestTFRef} from "../../../module/spending-request/SpendingRequestTFRef";
+import {TypeFormWebhook, TypeFormWebhookProps} from "@/module/typeform/TypeFormWebhook";
+import {SpendingRequest} from "@/module/spending-request/SpendingRequest";
+import {SpendingRequestTFRef} from "@/module/spending-request/SpendingRequestTFRef";
 import {now} from "lodash";
 import {DI} from "@/common/util/di/DI";
-import {Email, EmailProps} from "../../../module/email/Email";
+import {Email, EmailProps} from "@/module/email/Email";
+import {GMailService} from "@/module/email/GMailService";
 
 /**
  * Handles `/api/finance/typeform`
@@ -34,7 +35,7 @@ const handler : NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
 
     await DI.SpendingRequestService.addSpendingRequest(spendingRequest).then(async (resp) => {
         if (resp != undefined) {
-            const emailResp = await DI.EmailService.sendEmail(new Email({
+            const emailResp = await new GMailService().sendEmail(new Email({
                 to: "michael.h@pyf.org.nz",
                 subject: "New Spending Request",
                 content: [

@@ -1,7 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {FirebaseAdminService} from "../../../module/firestore/FirebaseAdminService";
-import {MemberService} from "../../../module/member/MemberService";
-import {Member} from "../../../module/member/Member";
+import {Member} from "@/module/member/model/Member";
 import {DI} from "@/common/util/di/DI";
 
 

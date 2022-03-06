@@ -1,4 +1,4 @@
-import {AppURL} from "../../../util/AppURL";
+import {AppURL} from "@/common/util/AppURL";
 import Link from "next/link";
 
 const NavLink = (currentPath: string, url: AppURL, linkText: string) => {

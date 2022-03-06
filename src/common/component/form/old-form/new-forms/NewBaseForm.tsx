@@ -1,12 +1,12 @@
-import {CustomComponentProps} from "@/common/util/CustomComponentProps";
-import StyledTextField from "../../mui/TextField";
+import {CustomComponentProps} from "@/common/component/util/CustomComponentProps";
+import TextField from "../../../mui/TextField";
 import styled from "@emotion/styled";
 
 const BaseFormContainer = styled.div`
   border: 2px solid black;
   padding: 25px;
   
-  ${StyledTextField} {
+  ${TextField} {
     margin: 30px;
   }
   

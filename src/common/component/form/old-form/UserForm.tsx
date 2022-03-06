@@ -1,10 +1,10 @@
-import {User} from "../../../../module/user/User";
-import {getUserScopeText, UserScope, UserScopeList} from "../../../../module/user/UserScope";
-import BaseForm from "./BaseForm";
+import {User} from "@/module/user/User";
+import {getUserScopeText, UserScope, UserScopeList} from "@/module/user/UserScope";
+import BaseForm from "../BaseForm";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
-import {CustomComponentProps} from "../../../util/CustomComponentProps";
+import {CustomComponentProps} from "../../util/CustomComponentProps";
 import { Button } from "@mui/material";
 
 interface UserFormProps extends CustomComponentProps {

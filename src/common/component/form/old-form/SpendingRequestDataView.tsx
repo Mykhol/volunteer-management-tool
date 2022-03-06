@@ -1,5 +1,5 @@
-import {CustomComponentProps} from "../../../util/CustomComponentProps";
-import {SpendingRequest} from "../../../../module/spending-request/SpendingRequest";
+import {CustomComponentProps} from "../../util/CustomComponentProps";
+import {SpendingRequest} from "@/module/spending-request/SpendingRequest";
 import styled from "@emotion/styled";
 import {Button} from "@mui/material";
 

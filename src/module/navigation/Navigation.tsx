@@ -2,12 +2,11 @@ import Link from "next/link";
 import {FC, ReactNode} from "react";
 import styled from "@emotion/styled";
 import {useRouter} from "next/router";
-import {AppURL} from "../../../util/AppURL";
+import {AppURL} from "@/common/util/AppURL";
 import {NavLinkData} from "./NavLinkData";
 import SubNavigation from "./SubNavigation";
 import NavLink from "./NavLink";
-import {useAuth} from "../../../../module/auth/component/AuthProvider";
-import {Theme} from "@mui/material";
+import {useAuth} from "@/module/auth/component/AuthProvider";
 
 const NavigationContainer = styled.div`
 
@@ -16,7 +15,7 @@ const NavigationContainer = styled.div`
 
   padding: 0 100px;
 
-  background-color: ${props => props.theme.palette.primary.main};
+  background-color: ${props => props.theme.palette.primary.dark};
 
   display: flex;
   flex-direction: row;
@@ -24,7 +23,7 @@ const NavigationContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  color: ${props => props.theme.palette.primary.main};
+  color: ${props => props.theme.palette.primary.light};
 
   h2 {
     cursor: pointer;
@@ -53,7 +52,7 @@ const NavigationContainer = styled.div`
 
       #active-page {
         text-decoration: underline;
-        color: ${props => props.theme.palette.secondary.main}
+        color: ${props => props.theme.palette.warning.main}
       }
 
 

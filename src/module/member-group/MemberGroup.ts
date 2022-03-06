@@ -1,4 +1,4 @@
-import {Member} from "../member/Member";
+import {Member} from "../member/model/Member";
 
 export class MemberGroup {
 

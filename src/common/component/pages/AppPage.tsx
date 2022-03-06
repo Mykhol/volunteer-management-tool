@@ -1,4 +1,4 @@
-import Navigation from "../ui/navigation/Navigation";
+import Navigation from "../../../module/navigation/Navigation";
 import styled from "@emotion/styled";
 import {ReactNode} from "react";
 

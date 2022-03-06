@@ -5,7 +5,7 @@ import {GMailService} from "@/module/email/GMailService";
 import {SpendingRequestService} from "@/module/spending-request/SpendingRequestService";
 import {FirebaseAdminService} from "@/module/firestore/FirebaseAdminService";
 import {UserService} from "@/module/user/UserService";
-import {MemberService} from "@/module/member/MemberService";
+import {MemberService} from "@/module/member/service/MemberService";
 
 export class DI {
 
