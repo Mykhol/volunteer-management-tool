@@ -15,8 +15,13 @@
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
+    "@mui/lab": "^5.0.0-alpha.71",
     "@mui/material": "latest",
+    "firebase": "^9.6.4",
+    "firebase-admin": "^10.0.2",
+    "firebase-tools": "^10.1.2",
     "next": "latest",
+    "nookies": "^2.5.2",
     "react": "latest",
     "react-dom": "latest"
   },

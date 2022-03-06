@@ -35,3 +35,6 @@ yarn-error.log*
 
 # IntelliJ files
 .idea
+
+# private keys
+/private_keys
