@@ -1,23 +1,24 @@
-import {FirebaseAdminService} from "./FirebaseAdminService";
-import {Firestore, CollectionReference, FirestoreDataConverter } from "firebase-admin/firestore"
-import {FirestoreCollection} from "./FirestoreCollection";
-import {DataModel} from "./DataModel";
-import {Query} from "./Query";
-import classToDto from "@/common/util/ClassToDto";
+import {CollectionReference, Firestore, FirestoreDataConverter} from "firebase-admin/firestore"
+import {DataModel} from "@module/firestore/model/DataModel";
+import {Query} from "@module/firestore/model/Query";
+import classToDto from "@common/util/ClassToDto";
 
+/**
+ * Service that manages the data in firestore.
+ */
 export class FirestoreService<T extends DataModel> {
 
-    firebaseAdmin: FirebaseAdminService
-    firestore: Firestore
+    /**
+     * The collection that
+     */
     collection: CollectionReference
-    converter: FirestoreDataConverter<T>
 
-    constructor(firebaseAdminService: FirebaseAdminService, collection: FirestoreCollection, converter: FirestoreDataConverter<T>) {
-        this.firebaseAdmin = firebaseAdminService
-        this.firestore = firebaseAdminService.getFirestore()
-        this.converter = converter
-
-        this.collection = this.firestore.collection(collection).withConverter(this.converter)
+    constructor(
+        public firestore: Firestore,
+        collectionPath: string,
+        public converter: FirestoreDataConverter<T>
+    ) {
+        this.collection = firestore.collection(collectionPath).withConverter(converter)
     }
 
     async getDoc(query: Query){
@@ -27,7 +28,6 @@ export class FirestoreService<T extends DataModel> {
             query.searchValue).get()
 
         if (querySnapshot.docs.length == 1) {
-
             return this.converter.fromFirestore(querySnapshot.docs[0]);
         } else {
             return undefined
@@ -36,7 +36,6 @@ export class FirestoreService<T extends DataModel> {
     }
 
     async getDocs() {
-
         return this.collection.withConverter(this.converter).get().then((querySnapshot) => {
             return querySnapshot.docs.map((doc) => {
                 return doc.data()
@@ -54,10 +53,6 @@ export class FirestoreService<T extends DataModel> {
         return await this.getDoc(new Query("id", "==", data.id))
     }
 
-    addDocs() {
-
-    }
-
     async updateDoc(data: T) {
         if (data.id != null) {
             const docRef = this.collection.doc(data.id!!)
@@ -68,15 +63,7 @@ export class FirestoreService<T extends DataModel> {
         }
     }
 
-    updateDocs() {
-
-    }
-
     async deleteDoc(id: string) {
         await this.collection.doc(id).delete().then((r) => console.log(r))
-    }
-
-    deleteDocs() {
-
     }
 }

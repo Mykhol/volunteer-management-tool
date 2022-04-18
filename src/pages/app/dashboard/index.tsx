@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import Navigation from "../../../module/navigation/Navigation";
+import Navigation from "@module/navigation/component/Navigation";
 import styled from "@emotion/styled";
 
 const PageContainer = styled.div`

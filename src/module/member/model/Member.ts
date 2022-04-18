@@ -1,5 +1,6 @@
-import {DataModel} from "../../firestore/DataModel";
+import {DataModel} from "../../firestore/model/DataModel";
 import {VaccinationStatus} from "./VaccinationStatus";
+import "@common/extensions"
 
 /**
  * Data class that represents a member of a volunteer organisation.
@@ -57,18 +58,13 @@ export class Member implements DataModel {
             null,
             "",
             VaccinationStatus.UNKNOWN,
-            null,
+            null
         )
     }
 
-    isValid = (): boolean => {
-        return false
-    }
-
-    isBlank = (): boolean => {
+    isValid() {
         return true
     }
-
 }
 
 

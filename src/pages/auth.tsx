@@ -1,6 +1,6 @@
-import {useAuth} from "@/module/auth/component/AuthProvider";
-import {GetServerSideProps, GetServerSidePropsContext} from "next";
+import {useAuth} from "@module/auth/component/AuthProvider";
 import styled from "@emotion/styled";
+import {useRouter} from "next/router";
 
 interface AuthPageProps {
     redirectUrl: string
@@ -48,36 +48,17 @@ const AuthPageContainer = styled.div`
 
 `
 
-const AuthPage = ({redirectUrl} : AuthPageProps) => {
+const AuthPage = () => {
 
     const {user, firebaseClient} = useAuth()
-
+    const { query } = useRouter()
 
     return (
         <AuthPageContainer>
-            <button onClick={() => firebaseClient?.signInWithGoogle(redirectUrl)}>Sign in</button>
+            <button onClick={() => firebaseClient?.signInWithGoogle(query.redirect as string)}>Sign in</button>
             <p>* Please select your PYF Google Account</p>
         </AuthPageContainer>
     )
-
-}
-
-export const getServerSideProps: GetServerSideProps = async (context : GetServerSidePropsContext) => {
-
-    if (context.query.redirect != null) {
-        return {
-            props: {
-                redirectUrl: context.query.redirect
-            }
-        }
-    } else {
-        return {
-            props: {
-                redirectUrl: "/app/dashboard"
-            }
-        }
-    }
-
 
 }
 

@@ -1,4 +1,4 @@
-import {CustomComponentProps} from "@/common/component/util/CustomComponentProps";
+import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
 import TextField from "../../../mui/TextField";
 import styled from "@emotion/styled";
 

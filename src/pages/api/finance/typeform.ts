@@ -1,11 +1,11 @@
 import {NextApiHandler, NextApiRequest, NextApiResponse} from "next";
-import {TypeFormWebhook, TypeFormWebhookProps} from "@/module/typeform/TypeFormWebhook";
-import {SpendingRequest} from "@/module/spending-request/SpendingRequest";
-import {SpendingRequestTFRef} from "@/module/spending-request/SpendingRequestTFRef";
+import {TypeFormWebhook, TypeFormWebhookProps} from "@module/typeform/model/TypeFormWebhook";
+import {SpendingRequest} from "@module/spending-request/model/SpendingRequest";
+import {SpendingRequestTFRef} from "@module/spending-request/model/SpendingRequestTFRef";
 import {now} from "lodash";
-import {DI} from "@/common/util/di/DI";
-import {Email, EmailProps} from "@/module/email/Email";
-import {GMailService} from "@/module/email/GMailService";
+import {DI} from "@common/util/di/DI";
+import {Email, EmailProps} from "@module/email/model/Email";
+import {GMailService} from "@module/email/service/GMailService";
 
 /**
  * Handles `/api/finance/typeform`

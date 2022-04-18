@@ -2,11 +2,11 @@ import Link from "next/link";
 import {FC, ReactNode} from "react";
 import styled from "@emotion/styled";
 import {useRouter} from "next/router";
-import {AppURL} from "@/common/util/AppURL";
-import {NavLinkData} from "./NavLinkData";
+import {AppURL} from "@common/util/AppURL";
+import {NavLinkData} from "../model/NavLinkData";
 import SubNavigation from "./SubNavigation";
 import NavLink from "./NavLink";
-import {useAuth} from "@/module/auth/component/AuthProvider";
+import {useAuth} from "@module/auth/component/AuthProvider";
 
 const NavigationContainer = styled.div`
 

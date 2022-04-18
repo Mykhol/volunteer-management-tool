@@ -1,8 +1,8 @@
 import {useState} from "react";
-import {Member} from "@/module/member/model/Member";
+import {Member} from "@module/member/model/Member";
 import styled from "@emotion/styled";
 import {CustomComponentProps} from "../../util/CustomComponentProps";
-import "@/common/util/isSuccessful"
+import "@common/extensions"
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import NewMemberForm from "./new-forms/NewMemberForm";

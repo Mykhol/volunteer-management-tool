@@ -1,10 +1,10 @@
-import {DataModel} from "../firestore/DataModel";
+import {DataModel} from "../../firestore/model/DataModel";
 import {now} from "lodash";
 
 /**
  * Props used in `SpendingRequest` constructor.
  */
-interface SpendingRequestProps extends DataModel<SpendingRequest>{
+interface SpendingRequestProps extends DataModel{
     /**
      * A unique identifier for each spending request
      */

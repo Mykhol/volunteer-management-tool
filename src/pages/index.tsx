@@ -1,24 +1,22 @@
 import * as React from 'react';
-import type { NextPage } from 'next';
-import FullPageContainer from "@/common/component/container/FullPageContainer";
-import Link from 'next/link'
-import styled from "@emotion/styled";
-import BaseForm from "@/common/component/form/BaseForm";
-import MemberForm from "@/module/member/component/MemberForm";
+import type {NextPage} from 'next';
+import {useRouter} from "next/router";
+import {useEffect} from "react";
 
-const Test = styled.div`
 
-  width: 100px;
-  height: 100px;
-  background-color: ${props => props.theme.palette.secondary.main};
-
-`
 
 const Home: NextPage = () => {
-    return (
-            <MemberForm>
 
-            </MemberForm>
+    const router = useRouter()
+
+    useEffect(() => {
+        router.push("/auth").then((r) => {})
+    }, [])
+
+    return (
+        <div>
+            <p>You will be redirected shortly...</p>
+        </div>
     )
 }
 

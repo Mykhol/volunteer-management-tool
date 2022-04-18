@@ -1,13 +1,13 @@
 import {JWT} from "google-auth-library";
 import {gmail_v1} from "@googleapis/gmail/v1";
 import Gmail = gmail_v1.Gmail;
-import {Email} from "./Email";
-import {Response} from "../network/Response";
+import {Email} from "../model/Email";
+import {AppResponse} from "../../network/model/AppResponse";
 const path = require("path")
-import '@/common/util/isSuccessful'
+import '@common/extensions'
 
 /**
- * A service used to access the Gmail API
+ * A server-service used to access the Gmail API
  */
 export class GMailService {
 
@@ -41,7 +41,7 @@ export class GMailService {
     }
 
     /**
-     * Given an `Email` this method uses the service to send the email.
+     * Given an `Email` this method uses the server-service to send the email.
      *
      * @param email
      */
@@ -58,9 +58,9 @@ export class GMailService {
          * If the above promise is not made then return an error
          */
         if (emailResp.status.isSuccessful()) {
-            return new Response(emailResp.status, emailResp)
+            return new AppResponse(emailResp.status, emailResp)
         } else {
-            return new Response(500, emailResp)
+            return new AppResponse(500, emailResp)
         }
     }
 

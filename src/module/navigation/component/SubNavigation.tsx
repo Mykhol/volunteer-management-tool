@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import styled from "@emotion/styled";
-import {NavLinkData} from "./NavLinkData";
+import {NavLinkData} from "../model/NavLinkData";
 import NavLink from "./NavLink";
 
 const SubNavigationContainer = styled.div`

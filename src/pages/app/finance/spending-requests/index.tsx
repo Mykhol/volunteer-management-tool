@@ -1,14 +1,11 @@
-import AppPage from "@/common/component/pages/AppPage";
-import {GetServerSidePropsContext} from "next";
-import {FirebaseAdminService} from "@/module/firestore/FirebaseAdminService";
-import classToDto from "@/common/util/ClassToDto";
-import {SpendingRequestService} from "@/module/spending-request/SpendingRequestService";
-import StyledTable from "@/common/component/tables/StyledTable";
-import Table from "@/common/component/tables/StyledTable";
-import {SpendingRequest} from "@/module/spending-request/SpendingRequest";
-import {SpendingRequestDataView} from "@/common/component/form/old-form/SpendingRequestDataView";
+import AppPage from "@common/component/pages/AppPage";
+import StyledTable from "@common/component/tables/StyledTable";
+import Table from "@common/component/tables/StyledTable";
+import {SpendingRequest} from "@module/spending-request/model/SpendingRequest";
+import {SpendingRequestDataView} from "@common/component/form/old-form/SpendingRequestDataView";
 import {useState} from "react";
 import styled from "@emotion/styled";
+import useSWR from "swr";
 
 const UsersContent = styled.div`
 
@@ -22,18 +19,18 @@ const UsersContent = styled.div`
   
 `
 
-const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
+const SpendingRequestsPage = () => {
 
     const [spendingRequest, setSpendingRequest] = useState<SpendingRequest | null>(null)
 
-    console.log()
+    const {data} = useSWR("/api/spending-requests")
 
     const getGst = (number: number) : number => {
         return number - (number/1.15)
     }
 
     const spendingRequestSelect = (id: string) => {
-        const selectedUser = requests.find((request) => {
+        const selectedUser = data.requests.find((request: SpendingRequest) => {
             return request.id == id
         }) || null
 
@@ -55,7 +52,7 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
                     <th>File</th>
                 </tr>
                 </thead>
-                {requests?.map((request) => {
+                {data.requests?.map((request: SpendingRequest) => {
 
                     const date  = new Date(request.submitTimeStamp)
 
@@ -81,16 +78,6 @@ const SpendingRequestsPage = ({requests} : {requests: SpendingRequest[]}) => {
         </AppPage>
     )
 
-}
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-    const requests = await new SpendingRequestService(new FirebaseAdminService()).getAllSpendingRequests()
-
-    return {
-        props: {
-            requests: classToDto(requests)
-        }
-    }
 }
 
 export default SpendingRequestsPage

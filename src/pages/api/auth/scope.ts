@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {DI} from "@/common/util/di/DI";
-import {UserScope} from "../../../module/user/UserScope";
+import {DI} from "@common/util/di/DI";
+import {UserScope} from "@module/user/model/UserScope";
 
 /**
  * This handles the 'api/auth/scope' endpoint.

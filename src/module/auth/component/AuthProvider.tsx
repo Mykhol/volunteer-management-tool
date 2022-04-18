@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import nookies from 'nookies'
 import {User} from "@firebase/auth";
-import FirebaseClientService from "@/module/firestore/FirebaseClientService";
+import FirebaseClientService from "@module/firestore/service/FirebaseClientService";
 
 const AuthContext = createContext<{user: User | null, firebaseClient: FirebaseClientService | null}>(
     {
@@ -25,7 +25,7 @@ export const AuthProvider = ({firebaseClient, children} : AuthProviderProps) => 
                 setUser(null);
                 nookies.set(undefined, 'token', '', { path: '/' });
             } else {
-                const token = await user.getIdToken();
+                const token = await user.getIdToken(true);
                 setUser(user);
                 nookies.set(undefined, 'token', token, { path: '/' });
             }

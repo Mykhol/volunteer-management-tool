@@ -20,11 +20,14 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/common/*": [
+      "@common/*": [
         "src/common/*"
       ],
-      "@/module/*": [
+      "@module/*": [
         "src/module/*"
+      ],
+      "extensions": [
+        "src/common/extensions"
       ]
     }
   },

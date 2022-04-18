@@ -1,14 +1,14 @@
-import {FirestoreService} from "../firestore/FirestoreService";
-import {FirebaseAdminService} from "../firestore/FirebaseAdminService";
-import {User} from "./User";
-import {FirestoreCollection} from "../firestore/FirestoreCollection";
-import {Query} from "../firestore/Query";
-import {dataConverter} from "../firestore/DataConverter";
+import {FirestoreService} from "@module/firestore/service/FirestoreService";
+import {User} from "@module/user/model/User";
+import {FirestoreCollection} from "@module/firestore/model/FirestoreCollection";
+import {Query} from "@module/firestore/model/Query";
+import {dataConverter} from "@module/firestore/util/DataConverter";
+import {FirebaseAdminService} from "@module/firestore/service/FirebaseAdminService";
 
 export class UserService extends FirestoreService<User> {
 
-    constructor(firebaseAdminService: FirebaseAdminService) {
-        super(firebaseAdminService, FirestoreCollection.USERS, dataConverter<User>());
+    constructor(public firebaseAdmin: FirebaseAdminService) {
+        super(firebaseAdmin.firestore, FirestoreCollection.USERS, dataConverter<User>());
     }
 
     async addUser(appUser: User) {

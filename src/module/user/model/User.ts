@@ -1,5 +1,5 @@
 import {FirestoreDataConverter, DocumentData, QueryDocumentSnapshot} from "firebase-admin/firestore";
-import {DataModel} from "../firestore/DataModel";
+import {DataModel} from "../../firestore/model/DataModel";
 import {UserScope} from "./UserScope";
 
 export class User implements DataModel {

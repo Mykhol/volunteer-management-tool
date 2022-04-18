@@ -1,5 +1,5 @@
-import {User} from "@/module/user/User";
-import {getUserScopeText, UserScope, UserScopeList} from "@/module/user/UserScope";
+import {User} from "@module/user/model/User";
+import {getUserScopeText, UserScope, UserScopeList} from "@module/user/model/UserScope";
 import BaseForm from "../BaseForm";
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useRouter} from "next/router";

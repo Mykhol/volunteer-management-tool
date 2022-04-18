@@ -1,16 +1,18 @@
-import BaseForm from "@/common/component/form/BaseForm";
-import {CustomComponentProps} from "@/common/component/util/CustomComponentProps";
-import TextField from "@/common/component/mui/TextField";
-import InputRow from "@/common/component/form/InputRow";
+import BaseForm from "@common/component/form/BaseForm";
+import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
+import TextField from "@common/component/mui/TextField";
+import InputRow from "@common/component/form/InputRow";
 import {Button, FormControl, InputLabel, MenuItem, Select, TextField as MUITextField} from "@mui/material";
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from "@mui/lab";
 import {useEffect, useState} from "react";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import {getVaccinationStatusText, VaccinationStatus} from "@/module/member/model/VaccinationStatus";
-import {Member} from "@/module/member/model/Member";
+import {getVaccinationStatusText, VaccinationStatus} from "@module/member/model/VaccinationStatus";
+import {Member} from "@module/member/model/Member";
+import {css, SerializedStyles} from "@emotion/react";
 
 export interface MemberFormProps extends CustomComponentProps {
-    member: Member
+    member: Member | null
+    onSubmit: (member: Member) => any
 }
 
 /**
@@ -18,11 +20,11 @@ export interface MemberFormProps extends CustomComponentProps {
  */
 const MemberForm = (props: MemberFormProps) => {
 
-    const [memberData, setMemberData] = useState(props.member)
+    const [memberData, setMemberData] = useState(props.member || Member.empty)
 
-    // Each time props.member changes, update memberData.
+    // Each time member changes, update memberData.
     useEffect(() => {
-        setMemberData(props.member)
+        setMemberData(props.member || Member.empty)
     }, [props.member])
 
     return (
@@ -58,7 +60,12 @@ const MemberForm = (props: MemberFormProps) => {
             </FormControl>
             <Button sx={{
                 width: 100
-            }}>Create member</Button>
+            }}
+            onClick={() => {
+                console.log("Clicked")
+                props.onSubmit(memberData)
+            }}
+            >{props.member ? "Update member" : "Create member"}</Button>
         </BaseForm>
     )
 

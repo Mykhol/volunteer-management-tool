@@ -1,15 +1,15 @@
 import {GetServerSidePropsContext} from "next";
-import {UserService} from "@/module/user/UserService";
-import {FirebaseAdminService} from "@/module/firestore/FirebaseAdminService";
-import {User} from "@/module/user/User";
-import AppPage from "@/common/component/pages/AppPage";
+import {UserService} from "@module/user/service/UserService";
+import {FirebaseAdminService} from "@module/firestore/service/FirebaseAdminService";
+import {User} from "@module/user/model/User";
+import AppPage from "@common/component/pages/AppPage";
 import {useRouter} from "next/router";
-import {getUserScopeText} from "@/module/user/UserScope";
+import {getUserScopeText} from "@module/user/model/UserScope";
 import styled from "@emotion/styled";
-import UserForm from "@/common/component/form/old-form/UserForm";
+import UserForm from "@common/component/form/old-form/UserForm";
 import {useState} from "react";
-import Table from "@/common/component/tables/StyledTable";
-import classToDto from "@/common/util/ClassToDto";
+import Table from "@common/component/tables/StyledTable";
+import classToDto from "@common/util/ClassToDto";
 import { Button } from "@mui/material";
 
 interface UsersPageProps {

@@ -1,17 +1,17 @@
-import {FirestoreService} from "../firestore/FirestoreService";
-import {SpendingRequest} from "./SpendingRequest";
-import {FirebaseAdminService} from "../firestore/FirebaseAdminService";
-import {FirestoreCollection} from "../firestore/FirestoreCollection";
-import {dataConverter} from "../firestore/DataConverter";
-import {Query} from "../firestore/Query";
+import {FirestoreService} from "@module/firestore/service/FirestoreService";
+import {SpendingRequest} from "@module/spending-request/model/SpendingRequest";
+import {FirestoreCollection} from "@module//firestore/model/FirestoreCollection";
+import {dataConverter} from "@module/firestore/util/DataConverter";
+import {Query} from "@module/firestore/model/Query";
+import {Firestore} from "firebase-admin/firestore"
 
 /**
  * Service used to access spending request data in the database.
  */
 export class SpendingRequestService extends FirestoreService<SpendingRequest> {
 
-    constructor(firebaseAdminService: FirebaseAdminService) {
-        super(firebaseAdminService, FirestoreCollection.SPENDING_REQUESTS, dataConverter<SpendingRequest>());
+    constructor(firestore: Firestore) {
+        super(firestore, FirestoreCollection.SPENDING_REQUESTS, dataConverter<SpendingRequest>());
     }
 
     public async addSpendingRequest(spendingRequest: SpendingRequest) {

@@ -1,4 +1,4 @@
-import {AppURL} from "@/common/util/AppURL";
+import {AppURL} from "@common/util/AppURL";
 
 export class NavLinkData {
 

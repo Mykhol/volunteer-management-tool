@@ -1,6 +1,6 @@
 import type {NextFetchEvent, NextRequest} from 'next/server'
-import {UserScope} from "../../module/user/UserScope";
-import {scopedRoute} from "../../module/auth/api/ScopedRoute";
+import {UserScope} from "@module/user/model/UserScope";
+import {scopedRoute} from "@module/auth/api/ScopedRoute";
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
