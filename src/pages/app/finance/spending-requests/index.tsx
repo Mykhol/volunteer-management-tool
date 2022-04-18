@@ -2,6 +2,7 @@ import AppPage from "@common/component/pages/AppPage";
 import {SpendingRequest} from "@module/spending-request/model/SpendingRequest";
 import {useState} from "react";
 import useSWR from "swr";
+import SpendingRequestTable from "@module/spending-request/component/SpendingRequestTable";
 
 const SpendingRequestsPage = () => {
 
@@ -11,6 +12,7 @@ const SpendingRequestsPage = () => {
 
     return (
         <AppPage>
+            <SpendingRequestTable spendingRequests={data}></SpendingRequestTable>
         </AppPage>
     )
 
