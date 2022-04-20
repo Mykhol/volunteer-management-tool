@@ -1,18 +1,18 @@
 /**
- * This class will act as a dependency injector / service manager for easy access to all services.
+ * This class will act as a dependency injector / server-service manager for easy access to all services.
  */
-import {GMailService} from "@/module/email/GMailService";
-import {SpendingRequestService} from "@/module/spending-request/SpendingRequestService";
-import {FirebaseAdminService} from "@/module/firestore/FirebaseAdminService";
-import {UserService} from "@/module/user/UserService";
-import {MemberService} from "@/module/member/service/MemberService";
+import {GMailService} from "@module/email/service/GMailService";
+import {SpendingRequestService} from "@module/spending-request/service/SpendingRequestService";
+import {FirebaseAdminService} from "@module/firestore/service/FirebaseAdminService";
+import {UserService} from "@module/user/service/UserService";
+import {MemberService} from "@module/member/server-service/MemberService";
 
 export class DI {
 
     static FirebaseAdminService = new FirebaseAdminService()
-    static SpendingRequestService = new SpendingRequestService(DI.FirebaseAdminService)
+    static SpendingRequestService = new SpendingRequestService(DI.FirebaseAdminService.getFirestore())
     static UserService = new UserService(DI.FirebaseAdminService)
-    static MemberService = new MemberService(DI.FirebaseAdminService)
+    static MemberService = new MemberService(DI.FirebaseAdminService.getFirestore())
 
 
     // static EmailService = new GMailService()

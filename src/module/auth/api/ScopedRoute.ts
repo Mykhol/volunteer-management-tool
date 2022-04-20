@@ -1,7 +1,7 @@
-import {UserScope} from "../../user/UserScope";
+import {UserScope} from "@module/user/model/UserScope";
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import {NextRequest, NextResponse} from "next/server";
-import "@/common/util/isSuccessful"
+import "@common/extensions"
 
 /**
  * Takes a required scope, plus a request with a body that contains a firebase token. The method determines if the user
@@ -16,7 +16,7 @@ export const scopedRoute = async (requiredScope: UserScope, req: NextRequest, fa
     // If there is no cookie then take the user to the auth screen.
     if (req.cookies.token == null || req.cookies.token == "") {
         console.log("Token was blank")
-        return NextResponse.redirect("/auth?redirect=" + req.nextUrl.pathname)
+        return NextResponse.redirect(req.nextUrl.protocol + "//" + req.nextUrl.host + "/auth?redirect=" + req.nextUrl.pathname)
     }
 
     const fetchOptions = {
@@ -41,6 +41,6 @@ export const scopedRoute = async (requiredScope: UserScope, req: NextRequest, fa
     }
 
     // If the scope request was unsuccessful or the user has the wrong scope, redirect them tto the failure screen.
-    return NextResponse.redirect(failRedirectPath)
+    return NextResponse.redirect(req.nextUrl.protocol + "//" + req.nextUrl.host + failRedirectPath)
 
 }

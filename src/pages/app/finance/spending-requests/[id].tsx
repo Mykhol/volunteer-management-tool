@@ -1,10 +1,10 @@
 import AppPage from "../../../../common/component/pages/AppPage";
 import {GetServerSidePropsContext} from "next";
-import classToDto from "@/common/util/ClassToDto";
+import classToDto from "@common/util/ClassToDto";
 import Table from "../../../../common/component/tables/StyledTable";
-import {SpendingRequest} from "@/module/spending-request/SpendingRequest";
-import {SpendingRequestDataView} from "@/common/component/form/old-form/SpendingRequestDataView";
-import {DI} from "@/common/util/di/DI";
+import {SpendingRequest} from "@module/spending-request/model/SpendingRequest";
+import {SpendingRequestDataView} from "@common/component/form/old-form/SpendingRequestDataView";
+import {DI} from "@common/util/di/DI";
 import styled from "@emotion/styled";
 
 const UsersContent = styled.div`

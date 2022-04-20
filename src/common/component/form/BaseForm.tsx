@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import {CustomComponentProps} from "@/common/component/util/CustomComponentProps";
+import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
 
 /**
  * Container for the base form.
@@ -9,13 +9,15 @@ const Container = styled.div`
   // Ensures that the BaseForm remains as small as the content inside it.
   display: inline-block;
   
+  height: min-content;
+  
   padding: 35px 30px;
   //margin: 15px;
 
   // background-color: ${props => props.theme.palette.grey.A100};
   
   border-radius: 5px;
-  border: 1px solid ${props => props.theme.palette.grey.A200};
+  border: 1px solid ${props => props.theme.palette.grey.A400};
   
   // Apply a bottom margin to all elements in this container.
   && > * {
@@ -37,14 +39,13 @@ const Container = styled.div`
 
 `
 
-
 /**
  * Serves as the base for all data view and input forms across the app.
  */
 const BaseForm = (props: CustomComponentProps) => {
 
     return (
-        <Container>
+        <Container css={props.css}>
             {props.children}
         </Container>
     )

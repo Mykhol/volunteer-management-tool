@@ -1,6 +1,7 @@
-import {useAuth} from "@/module/auth/component/AuthProvider";
-import {GetServerSideProps, GetServerSidePropsContext} from "next";
-import styled from "@emotion/styled";
+import {useAuth} from "@module/auth/component/AuthProvider";
+import {useRouter} from "next/router";
+import {Button} from "@mui/material";
+import styled from "styled-components";
 
 interface AuthPageProps {
     redirectUrl: string
@@ -17,26 +18,15 @@ const AuthPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   
-  button {
+  #button {
+    width: 300px;
+    height: 60px;
     
-    height: 50px;
-    width: 200px;
-    
-    background-color: ${props => props.theme.palette.error.main};
-    color: ${props => props.theme.palette.primary.main};
-    
-    border: none;
-    border-radius: 15px;
-    
-    cursor: pointer;
-    
-    transition: all 0.5s ease;
-    font-weight: bold;
-    font-size: 1.3rem;
-    
+    font-size: 1.5rem;
+    font-weight: bolder;
     
     &:hover {
-      opacity: 0.5;
+      opacity: 0.8;
     }
     
   }
@@ -48,36 +38,17 @@ const AuthPageContainer = styled.div`
 
 `
 
-const AuthPage = ({redirectUrl} : AuthPageProps) => {
+const AuthPage = () => {
 
     const {user, firebaseClient} = useAuth()
-
+    const { query } = useRouter()
 
     return (
         <AuthPageContainer>
-            <button onClick={() => firebaseClient?.signInWithGoogle(redirectUrl)}>Sign in</button>
+            <Button id={"button"} variant={"contained"} onClick={() => firebaseClient?.signInWithGoogle(query.redirect as string)}>Sign in</Button>
             <p>* Please select your PYF Google Account</p>
         </AuthPageContainer>
     )
-
-}
-
-export const getServerSideProps: GetServerSideProps = async (context : GetServerSidePropsContext) => {
-
-    if (context.query.redirect != null) {
-        return {
-            props: {
-                redirectUrl: context.query.redirect
-            }
-        }
-    } else {
-        return {
-            props: {
-                redirectUrl: "/app/dashboard"
-            }
-        }
-    }
-
 
 }
 
