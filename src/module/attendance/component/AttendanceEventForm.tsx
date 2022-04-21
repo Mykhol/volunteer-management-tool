@@ -1,31 +1,64 @@
 import {Button, MenuItem, TextField} from "@mui/material";
 import {DatePicker, LocalizationProvider, Skeleton, TimePicker} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {MemberGroup} from "@module/member-group/model/MemberGroup";
-import {AttendanceEventType} from "@module/attendance/model/AttendanceEvent";
-import styled from "styled-components";
+import {
+    AttendanceEvent,
+    AttendanceEventType,
+    getAttendanceEventTypeText
+} from "@module/attendance/model/AttendanceEvent";
 import {FormContainer, FormInputContainer} from "@common/component/container/FormUtil";
 import useSWR from "swr";
-
 
 
 const AttendanceEventForm = () => {
 
 
-    const [eventName, setEventName] = useState<string | null>(null)
-    const [eventDate, setEventDate] = useState<Date | null>(new Date())
-    const [startTime, setStartTime] = useState<number | null>(0)
-    const [endTime, setEndTime] = useState<number | null>(0)
-    const [eventType, setEventType] = useState<AttendanceEventType>()
+    const [eventName, setEventName] = useState<string>("")
+    const [eventDate, setEventDate] = useState<Date>(new Date())
+    const [startTime, setStartTime] = useState<number>(0)
+    const [endTime, setEndTime] = useState<number>(0)
+    const [eventType, setEventType] = useState<AttendanceEventType>(AttendanceEventType.GENERAL_WORKSHOP)
+    const [memberGroup, setMemberGroup] = useState<string>("")
 
     const {data} = useSWR("/api/member-groups")
 
     const allMemberGroups: MemberGroup[] = data
 
+    const handleSubmit = () => {
+
+        console.log("Submitting")
+
+        const attendanceEvent = new AttendanceEvent(null,
+            eventName,
+            eventDate,
+            startTime,
+            endTime,
+            {
+                id: memberGroup,
+                name: allMemberGroups.find((m) => m.id == memberGroup)!!.name
+            },
+            eventType)
+
+        const options = {
+            method: "POST",
+            body: JSON.stringify(attendanceEvent)
+        }
+
+        fetch("/api/attendance-events", options).then((r) => {
+            if (r.status.isSuccessful()) {
+
+            }
+        })
+
+    }
+
     if (!data) {
         return (
-            <Skeleton variant={"rectangular"} width={'100%'} height={800}/>
+            <Skeleton variant={"rectangular"}
+                      width={'100%'}
+                      height={800}/>
         )
     }
 
@@ -35,14 +68,18 @@ const AttendanceEventForm = () => {
                 <h2>Create new attendance event</h2>
                 <FormInputContainer>
                     {/* Render the event name field */}
-                    <TextField label="Event Name" variant="outlined" InputLabelProps={{ shrink: true }}/>
+                    <TextField label="Event Name"
+                               variant="outlined"
+                               InputLabelProps={{ shrink: true }}
+                               onChange={(e) => setEventName(e.target.value)}
+                    />
 
                     {/* Render the date picker */}
                     <DatePicker
                         label="Event Date"
                         inputFormat={"dd/MM/yyyy"}
                         value={eventDate}
-                        onChange={(newValue) => { setEventDate(newValue)}}
+                        onChange={(newValue) => { setEventDate(newValue || new Date())}}
                         renderInput={(params) => <TextField InputLabelProps={{ shrink: true }} {...params} />}
                     />
 
@@ -51,7 +88,7 @@ const AttendanceEventForm = () => {
                         label="Start Time"
                         value={startTime}
                         onChange={(newValue) => {
-                            setStartTime(newValue);
+                            setStartTime(newValue || 0);
                         }}
                         renderInput={(params) => <TextField InputLabelProps={{ shrink: true }} {...params} />}
                     />
@@ -61,7 +98,7 @@ const AttendanceEventForm = () => {
                         label="End Time"
                         value={endTime}
                         onChange={(newValue) => {
-                            setEndTime(newValue);
+                            setEndTime(newValue || 0);
                         }}
                         renderInput={(params) => <TextField InputLabelProps={{ shrink: true }} {...params} />}
                     />
@@ -69,16 +106,23 @@ const AttendanceEventForm = () => {
                     {/* Render the event type select dropdown */}
                     <TextField
                         variant={"outlined"}
-                        required={true}
                         label="Event Type"
+                        value={eventType}
                         InputLabelProps={{ shrink: true }}
-                        value={null}
-                        onChange={() => null}
+                        onChange={(e) => setEventType(e.target.value as AttendanceEventType)}
                         select={true}
+                        SelectProps={{
+                            renderValue: () => getAttendanceEventTypeText(eventType),
+                            MenuProps: {
+                                style: {
+                                    maxHeight: 400,
+                                }
+                            }
+                        }}
                     >
-                        <MenuItem value={0}>Meeting / Workshop</MenuItem>
-                        <MenuItem value={1}>Event</MenuItem>
-                        <MenuItem value={2}>Other</MenuItem>
+                        <MenuItem value={AttendanceEventType.GENERAL_WORKSHOP}>{getAttendanceEventTypeText(AttendanceEventType.GENERAL_WORKSHOP)}</MenuItem>
+                        <MenuItem value={AttendanceEventType.EVENT}>{getAttendanceEventTypeText(AttendanceEventType.EVENT)}</MenuItem>
+                        <MenuItem value={AttendanceEventType.OTHER}>{getAttendanceEventTypeText(AttendanceEventType.OTHER)}</MenuItem>
                     </TextField>
 
                     {/* Render the member group select dropdown */}
@@ -87,9 +131,17 @@ const AttendanceEventForm = () => {
                         required={true}
                         label="Member Group"
                         InputLabelProps={{ shrink: true }}
-                        value={null}
-                        onChange={() => null}
+                        value={memberGroup}
+                        onChange={(e) => setMemberGroup(e.target.value)}
                         select={true}
+                        SelectProps={{
+                            renderValue: (value) => allMemberGroups.find((group) => group.id == value)!!.name,
+                            MenuProps: {
+                                style: {
+                                    maxHeight: 400,
+                                }
+                            }
+                        }}
                     >
                         {allMemberGroups?.map((memberGroup) => {
                             return (
@@ -98,7 +150,7 @@ const AttendanceEventForm = () => {
                         })}
 
                     </TextField>
-                    <Button variant={"contained"}>Create Event</Button>
+                    <Button variant={"contained"} onClick={handleSubmit}>Create Event</Button>
                 </FormInputContainer>
 
             </FormContainer>

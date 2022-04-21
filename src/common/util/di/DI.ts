@@ -7,6 +7,7 @@ import {FirebaseAdminService} from "@module/firestore/service/FirebaseAdminServi
 import {UserService} from "@module/user/service/UserService";
 import {MemberService} from "@module/member/server-service/MemberService";
 import {MemberGroupService} from "@module/member-group/service/MemberGroupService";
+import {AttendanceEventService} from "@module/attendance/service/AttendanceEventService";
 
 export class DI {
 
@@ -15,6 +16,7 @@ export class DI {
     static UserService = new UserService(DI.FirebaseAdminService)
     static MemberService = new MemberService(DI.FirebaseAdminService.getFirestore())
     static MemberGroupService = new MemberGroupService(DI.FirebaseAdminService.getFirestore())
+    static AttendanceEventService = new AttendanceEventService(DI.FirebaseAdminService.getFirestore())
 
 
     // static EmailService = new GMailService()
