@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // return all members
     if (req.method == "GET") {
         const members = await DI.MemberService.getAllMembers()
-        res.status(200).json({members: members})
+        res.status(200).json(members)
     }
 
     // create a new member

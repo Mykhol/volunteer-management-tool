@@ -1,5 +1,3 @@
-import {Member} from "../../member/model/Member";
-
 /**
  * Class that represents a group of members
  */
@@ -14,5 +12,13 @@ export class MemberGroup {
                 public name: string,
                 public members: {id: string, fullName: string}[]
     ) {}
+
+    static fromObj(obj: MemberGroup): MemberGroup {
+        return new MemberGroup(
+            obj.id,
+            obj.name,
+            obj.members
+        )
+    }
 
 }

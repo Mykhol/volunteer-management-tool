@@ -6,6 +6,7 @@ import {SpendingRequestService} from "@module/spending-request/service/SpendingR
 import {FirebaseAdminService} from "@module/firestore/service/FirebaseAdminService";
 import {UserService} from "@module/user/service/UserService";
 import {MemberService} from "@module/member/server-service/MemberService";
+import {MemberGroupService} from "@module/member-group/service/MemberGroupService";
 
 export class DI {
 
@@ -13,6 +14,7 @@ export class DI {
     static SpendingRequestService = new SpendingRequestService(DI.FirebaseAdminService.getFirestore())
     static UserService = new UserService(DI.FirebaseAdminService)
     static MemberService = new MemberService(DI.FirebaseAdminService.getFirestore())
+    static MemberGroupService = new MemberGroupService(DI.FirebaseAdminService.getFirestore())
 
 
     // static EmailService = new GMailService()

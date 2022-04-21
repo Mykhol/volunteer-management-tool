@@ -1,28 +1,14 @@
 import {Button, MenuItem, TextField} from "@mui/material";
-import {DatePicker, LocalizationProvider, TimePicker} from "@mui/lab";
+import {DatePicker, LocalizationProvider, Skeleton, TimePicker} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useEffect, useState} from "react";
 import {MemberGroup} from "@module/member-group/model/MemberGroup";
 import {AttendanceEventType} from "@module/attendance/model/AttendanceEvent";
 import styled from "styled-components";
+import {FormContainer, FormInputContainer} from "@common/component/container/FormUtil";
+import useSWR from "swr";
 
-const FormContainer = styled.div`
 
-  width: 400px;
-
-  h2 {
-    margin-bottom: 15px;
-  }
-
-`
-
-const FormInputContainer = styled.div`
-  > * {
-    margin-bottom: 20px;
-    width: 100%;
-  }
-
-`
 
 const AttendanceEventForm = () => {
 
@@ -33,15 +19,15 @@ const AttendanceEventForm = () => {
     const [endTime, setEndTime] = useState<number | null>(0)
     const [eventType, setEventType] = useState<AttendanceEventType>()
 
-    const [allMemberGroups, setAllMemberGroups] = useState<MemberGroup[]>()
+    const {data} = useSWR("/api/member-groups")
 
+    const allMemberGroups: MemberGroup[] = data
 
-    // Get list of all member groups
-    useEffect(() => {
-        fetch("/api/member-groups").then((memberGroups) => {
-            // setAllMemberGroups(memberGroups)
-        })
-    })
+    if (!data) {
+        return (
+            <Skeleton variant={"rectangular"} width={'100%'} height={800}/>
+        )
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>

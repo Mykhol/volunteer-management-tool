@@ -65,6 +65,14 @@ export class Member implements DataModel {
     isValid() {
         return true
     }
+
+    fullName() {
+        if (this.firstName == "" && this.lastName == "") {
+            return ""
+        }
+
+        return this.firstName + " " + this.lastName
+    }
 }
 
 
