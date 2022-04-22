@@ -11,6 +11,11 @@ interface MemberGroupFormProps extends CustomComponentProps {
 
 }
 
+/**
+ * Form used to create a new member group.
+ * @param props
+ * @constructor
+ */
 const MemberGroupForm = (props: MemberGroupFormProps) => {
 
     const [memberGroupName, setMemberGroupName] = useState<string>("")

@@ -21,13 +21,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // create a new member
     if (req.method == "POST") {
-        const member = Member.fromObj(JSON.parse(req.body))
-        const memberResp = await DI.MemberService.addMember(member)
-        if (memberResp != undefined) {
-            res.status(200).json({member: member})
-        } else {
+        // const member = Member.fromObj(JSON.parse(req.body))
+        // const memberResp = await DI.MemberService.addMember(member)
+        // if (memberResp != undefined) {
+        //     res.status(200).json({member: member})
+        // } else {
             res.status(500).json({member: null})
-        }
+        // }
     }
 
 }

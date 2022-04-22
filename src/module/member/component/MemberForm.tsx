@@ -1,18 +1,15 @@
-import BaseForm from "@common/component/form/BaseForm";
-import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
-import TextField from "@common/component/mui/TextField";
-import InputRow from "@common/component/form/InputRow";
-import {Button, FormControl, InputLabel, MenuItem, Select, TextField as MUITextField} from "@mui/material";
-import {DatePicker, DesktopDatePicker, LocalizationProvider} from "@mui/lab";
-import {useEffect, useState} from "react";
+import {CustomComponentProps, CustomComponentWithErrorHandlingProps} from "@common/component/util/CustomComponentProps";
+import {Button, TextField} from "@mui/material";
+import {DatePicker, LocalizationProvider} from "@mui/lab";
+import {useState} from "react";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import {getVaccinationStatusText, VaccinationStatus} from "@module/member/model/VaccinationStatus";
+import {FormContainer, FormInputContainer} from "@common/component/container/FormUtil";
 import {Member} from "@module/member/model/Member";
-import {css, SerializedStyles} from "@emotion/react";
+import withAppErrorHandler from "@module/errors/component/AppErrorHandler";
+import {ErrorType} from "@module/errors/model/ErrorType";
 
-export interface MemberFormProps extends CustomComponentProps {
-    member: Member | null
-    onSubmit: (member: Member) => any
+export interface MemberFormProps extends CustomComponentWithErrorHandlingProps {
+
 }
 
 /**
@@ -20,55 +17,75 @@ export interface MemberFormProps extends CustomComponentProps {
  */
 const MemberForm = (props: MemberFormProps) => {
 
-    const [memberData, setMemberData] = useState(props.member || Member.empty)
+    const [firstName, setFirstName] = useState<string>("")
+    const [lastName, setLastName] = useState<string>("")
+    const [primaryEmail, setPrimaryEmail] = useState<string>("")
+    const [dateOfBirth, setDateOfBirth] = useState<Date>(new Date())
 
-    // Each time member changes, update memberData.
-    useEffect(() => {
-        setMemberData(props.member || Member.empty)
-    }, [props.member])
+    const handleSubmit = () => {
+
+        const newMember = new Member(null, null, firstName, lastName, primaryEmail, null, dateOfBirth, null)
+
+        const options = {
+            method: "POST",
+            body: JSON.stringify(newMember)
+        }
+
+        fetch("/api/members", options).then((r) => {
+            if (r.status.isSuccessful()) {
+                console.log("Success")
+                setFirstName("")
+                setLastName("")
+                setPrimaryEmail("")
+                setDateOfBirth(new Date())
+            } else {
+                console.log("Failure")
+                props.handleAppError(ErrorType.ERROR,"Something went wrong!");
+            }
+        })
+
+    }
 
     return (
-        <BaseForm>
-            <InputRow>
-                <TextField required={true} label={"First name"} value={memberData.firstName} onChange={(firstName) => setMemberData({...memberData, firstName: firstName})}/>
-                <TextField required={true} label={"Last name"} value={memberData.lastName} onChange={(lastName) => setMemberData({...memberData, lastName: lastName})}/>
-            </InputRow>
-            <TextField required={true} label={"Email"} value={memberData.primaryEmail} onChange={(email) => setMemberData({...memberData, primaryEmail: email})}/>
-            <InputRow>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DatePicker
-                            label="Basic example"
-                            inputFormat={"dd/MM/yyyy"}
-                            value={memberData.dateOfBirth || "2022-01-01T00:00:00"}
-                            onChange={(newValue) => {setMemberData({...memberData, dateOfBirth: newValue || ""});}}
-                            renderInput={(params) => <MUITextField variant={"standard"} required={true} sx={{width: '100%'}} {...params} />}
-                        />
-                </LocalizationProvider>
-            </InputRow>
-            <FormControl variant="standard" required={true}>
-                <InputLabel>Vaccination Status</InputLabel>
-                <Select
-                    value={memberData.vaccinationStatus}
-                    onChange={(value) => setMemberData({...memberData, vaccinationStatus: value.target.value as VaccinationStatus})}
-                    label="Age"
-                >
-                    <MenuItem value={VaccinationStatus.UNKNOWN}>{getVaccinationStatusText(VaccinationStatus.UNKNOWN)}</MenuItem>
-                    <MenuItem value={VaccinationStatus.VALID}>{getVaccinationStatusText(VaccinationStatus.VALID)}</MenuItem>
-                    <MenuItem value={VaccinationStatus.INVALID}>{getVaccinationStatusText(VaccinationStatus.INVALID)}</MenuItem>
-                    <MenuItem value={VaccinationStatus.NO_PASS}>{getVaccinationStatusText(VaccinationStatus.NO_PASS)}</MenuItem>
-                </Select>
-            </FormControl>
-            <Button sx={{
-                width: 100
-            }}
-            onClick={() => {
-                console.log("Clicked")
-                props.onSubmit(memberData)
-            }}
-            >{props.member ? "Update member" : "Create member"}</Button>
-        </BaseForm>
-    )
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <FormContainer>
+                <h2>Create new member</h2>
+                <FormInputContainer>
+                    <TextField label={"First Name"}
+                               variant={"outlined"}
+                               value={firstName}
+                               InputLabelProps={{ shrink: true }}
+                               onChange={(e) => setFirstName(e.target.value)}
+                    />
 
+                    <TextField label={"Last Name"}
+                               variant={"outlined"}
+                               value={lastName}
+                               InputLabelProps={{ shrink: true }}
+                               onChange={(e) => setLastName(e.target.value)}
+                    />
+
+                    <TextField label={"Email"}
+                               variant={"outlined"}
+                               value={primaryEmail}
+                               InputLabelProps={{ shrink: true }}
+                               onChange={(e) => setPrimaryEmail(e.target.value)}
+                    />
+
+                    {/* Render the date picker */}
+                    <DatePicker
+                        label="Date of Birth"
+                        inputFormat={"dd/MM/yyyy"}
+                        value={dateOfBirth}
+                        onChange={(newValue) => { setDateOfBirth(newValue || new Date())}}
+                        renderInput={(params) => <TextField InputLabelProps={{ shrink: true }} {...params} />}
+                    />
+
+                    <Button variant={"contained"} onClick={handleSubmit}>Create Member</Button>
+                </FormInputContainer>
+            </FormContainer>
+        </LocalizationProvider>
+    )
 }
 
-export default MemberForm
+export default withAppErrorHandler(MemberForm)

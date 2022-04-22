@@ -1,5 +1,4 @@
 import {DataModel} from "../../firestore/model/DataModel";
-import {VaccinationStatus} from "./VaccinationStatus";
 import "@common/extensions"
 
 /**
@@ -25,8 +24,7 @@ export class Member implements DataModel {
         public lastName: string,
         public primaryEmail: string,
         public secondaryEmail: string | null,
-        public dateOfBirth: string,
-        public vaccinationStatus: VaccinationStatus,
+        public dateOfBirth: Date,
         public picture: string | null
     ) {}
 
@@ -44,7 +42,6 @@ export class Member implements DataModel {
             obj.primaryEmail,
             obj.secondaryEmail,
             obj.dateOfBirth,
-            obj.vaccinationStatus,
             obj.picture)
     }
 
@@ -56,8 +53,7 @@ export class Member implements DataModel {
             "",
             "",
             null,
-            "",
-            VaccinationStatus.UNKNOWN,
+            new Date(),
             null
         )
     }

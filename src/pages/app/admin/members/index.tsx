@@ -1,46 +1,25 @@
 import AppPage from "@common/component/pages/AppPage";
-import {Member} from "@module/member/model/Member";
-import styled from "@emotion/styled";
-import {useState} from "react";
 import MemberForm from "@module/member/component/MemberForm";
-import MemberTable from "@module/member/component/MemberTable";
-import pushMember from "@module/member/client-service/PushMember";
 import useSWR from "swr"
+import {Skeleton} from "@mui/lab";
 
-
-
-const UsersContent = styled.div`
-
-  display: flex;
-  flex-direction: row;
-`
-
+/**
+ * Page to view and edit data of members.
+ */
 const AdminMembersPage = () => {
-
-    const [selectedMember, setSelectedMember] = useState<Member | null>(null)
 
     const { data, error } = useSWR('/api/members')
 
-    const handleSubmit = async (member: Member) => {
-        const resp = await pushMember(member)
+    if (!data) {
+        return (
+            <Skeleton variant={"rectangular"} width={'100%'} height={800}/>
+        )
     }
 
     return (
         <AppPage>
-            <UsersContent>
-                {data ?
-                    <>
-                        <MemberTable members={data.members} onRowClick={(member) => setSelectedMember(member)}/>
-                        <MemberForm
-                            member={selectedMember}
-                            onSubmit={(member) => handleSubmit(member)}
-                        />
-                    </>
-                    :
-                    <p>Loading...</p>
-                }
-
-            </UsersContent>
+            <MemberForm />
+            {/*<MemberTable members={} />*/}
         </AppPage>
     )
 }
