@@ -9,7 +9,6 @@ import {AuthProvider} from "@module/auth/component/AuthProvider";
 import FirebaseClientService from "@module/firestore/service/FirebaseClientService";
 import {GlobalStyles} from "@common/component/util/style/GlobalStyle";
 import {SWRConfig} from 'swr'
-import {ErrorType} from "@module/errors/model/ErrorType";
 
 
 // Client-side cache, shared for the whole session of the user in the browser.

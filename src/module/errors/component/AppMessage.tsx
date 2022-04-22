@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {ErrorType, getAppErrorSeverity} from "@module/errors/model/ErrorType";
-import Alert from "@mui/material/Alert";
+import {MessageType, getAppErrorSeverity} from "@module/errors/model/MessageType";
+import Alert, {AlertColor} from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import {Slide} from "@mui/material";
 
@@ -8,38 +8,40 @@ import {Slide} from "@mui/material";
  * An HOC component that lets any other component display errors on the screen.
  * @param WrappedComponent
  */
-const withAppErrorHandler = (WrappedComponent: any) => {
+const withAppMessage = (WrappedComponent: any) => {
 
     return (props: any) => {
-        const [open, setOpen] = useState<boolean>(false)
-        const [errorType, setErrorType] = useState<ErrorType>(ErrorType.NONE)
+        const [isVisible, setIsVisible] = useState<boolean>(false)
+        const [errorType, setErrorType] = useState<MessageType>(MessageType.NONE)
         const [errorMessage, setErrorMessage] = useState<string>("")
 
-        const handleAppError = (errorType: ErrorType, errorMessage: string) => {
+        const displayAppMessage = (errorType: MessageType, errorMessage: string, visible: boolean = true) => {
             setErrorType(errorType)
+            setIsVisible(visible)
             setErrorMessage(errorMessage)
-            setOpen(true)
         }
 
         const handleClose = () => {
-            setOpen(false)
+            setIsVisible(false)
         }
 
         return (
             <>
-                <WrappedComponent {...props} handleAppError={handleAppError} />
+                <WrappedComponent {...props} displayAppMessage={displayAppMessage} />
                 <Snackbar
                     anchorOrigin={{
                         vertical: "bottom",
                         horizontal: "center"
                     }}
                     autoHideDuration={5000}
-                    open={open}
+                    open={isVisible}
                     onClose={handleClose}
                     TransitionComponent={Slide}
                 >
                     {/*// @ts-ignore*/}
-                    <Alert variant="filled" onClose={handleClose} severity={getAppErrorSeverity(errorType)}>
+                    <Alert variant="filled" onClose={handleClose}
+                           severity={getAppErrorSeverity(errorType) as AlertColor}
+                    >
                         {errorMessage}
                     </Alert>
                 </Snackbar>
@@ -49,4 +51,4 @@ const withAppErrorHandler = (WrappedComponent: any) => {
 
 }
 
-export default withAppErrorHandler
+export default withAppMessage

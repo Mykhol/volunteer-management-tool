@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import {ErrorType} from "@module/errors/model/ErrorType";
+import {MessageType} from "@module/errors/model/MessageType";
 
 export interface CustomComponentProps {
     className?: any
@@ -8,5 +8,5 @@ export interface CustomComponentProps {
 }
 
 export interface CustomComponentWithErrorHandlingProps extends CustomComponentProps {
-    handleAppError: (errorType: ErrorType, errorMessage: string) => any
+    displayAppMessage: (errorType: MessageType, errorMessage: string) => void
 }

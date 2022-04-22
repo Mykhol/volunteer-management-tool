@@ -1,12 +1,12 @@
-import {CustomComponentProps, CustomComponentWithErrorHandlingProps} from "@common/component/util/CustomComponentProps";
+import {CustomComponentWithErrorHandlingProps} from "@common/component/util/CustomComponentProps";
 import {Button, TextField} from "@mui/material";
 import {DatePicker, LocalizationProvider} from "@mui/lab";
 import {useState} from "react";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import {FormContainer, FormInputContainer} from "@common/component/container/FormUtil";
 import {Member} from "@module/member/model/Member";
-import withAppErrorHandler from "@module/errors/component/AppErrorHandler";
-import {ErrorType} from "@module/errors/model/ErrorType";
+import withAppMessage from "@module/errors/component/AppMessage";
+import {MessageType} from "@module/errors/model/MessageType";
 
 export interface MemberFormProps extends CustomComponentWithErrorHandlingProps {
 
@@ -24,6 +24,8 @@ const MemberForm = (props: MemberFormProps) => {
 
     const handleSubmit = () => {
 
+
+
         const newMember = new Member(null, null, firstName, lastName, primaryEmail, null, dateOfBirth, null)
 
         const options = {
@@ -33,14 +35,13 @@ const MemberForm = (props: MemberFormProps) => {
 
         fetch("/api/members", options).then((r) => {
             if (r.status.isSuccessful()) {
-                console.log("Success")
+                props.displayAppMessage(MessageType.SUCCESS, "Member created!")
                 setFirstName("")
                 setLastName("")
                 setPrimaryEmail("")
                 setDateOfBirth(new Date())
             } else {
-                console.log("Failure")
-                props.handleAppError(ErrorType.ERROR,"Something went wrong!");
+                props.displayAppMessage(MessageType.ERROR,"Something went wrong!");
             }
         })
 
@@ -88,4 +89,4 @@ const MemberForm = (props: MemberFormProps) => {
     )
 }
 
-export default withAppErrorHandler(MemberForm)
+export default withAppMessage(MemberForm)
