@@ -25,8 +25,12 @@ const MemberForm = (props: MemberFormProps) => {
     const handleSubmit = () => {
 
 
-
         const newMember = new Member(null, null, firstName, lastName, primaryEmail, null, dateOfBirth, null)
+
+        if (!newMember.isValid()) {
+            props.displayAppMessage(MessageType.ERROR, "Please check the data and try again.")
+            return
+        }
 
         const options = {
             method: "POST",

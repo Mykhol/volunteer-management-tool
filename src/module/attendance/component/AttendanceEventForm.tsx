@@ -1,5 +1,5 @@
-import {Button, MenuItem, TextField} from "@mui/material";
-import {DatePicker, LocalizationProvider, Skeleton, TimePicker} from "@mui/lab";
+import {Button, MenuItem, Skeleton, TextField} from "@mui/material";
+import {DatePicker, LocalizationProvider, TimePicker} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useState} from "react";
 import {MemberGroup} from "@module/member-group/model/MemberGroup";
@@ -56,14 +56,14 @@ const AttendanceEventForm = () => {
 
     if (!data) {
         return (
-            <Skeleton variant={"rectangular"}
-                      width={'100%'}
-                      height={800}/>
+            <>
+            </>
         )
     }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
+
             <FormContainer>
                 <h2>Create new attendance event</h2>
                 <FormInputContainer>

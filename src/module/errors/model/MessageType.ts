@@ -1,5 +1,3 @@
-import {VaccinationStatus} from "@module/member/model/VaccinationStatus";
-
 export enum MessageType {
 
     NONE,

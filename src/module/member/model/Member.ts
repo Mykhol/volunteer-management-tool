@@ -1,4 +1,4 @@
-import {DataModel} from "../../firestore/model/DataModel";
+import {DataModel} from "@module/firestore/model/DataModel";
 import "@common/extensions"
 
 /**
@@ -59,7 +59,12 @@ export class Member implements DataModel {
     }
 
     isValid() {
-        return true
+        return !(
+            this.firstName == "" ||
+            this.lastName == "" ||
+            this.primaryEmail == "" ||
+            this.dateOfBirth > new Date("January 1, 2007 00:00:00")
+        )
     }
 
     fullName() {
