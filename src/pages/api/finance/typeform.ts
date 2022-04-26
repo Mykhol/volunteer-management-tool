@@ -3,7 +3,7 @@ import {TypeFormWebhook, TypeFormWebhookProps} from "@module/typeform/model/Type
 import {SpendingRequest} from "@module/spending-request/model/SpendingRequest";
 import {SpendingRequestTFRef} from "@module/spending-request/model/SpendingRequestTFRef";
 import {now} from "lodash";
-import {DI} from "@common/util/di/DI";
+import {DI} from "@common/di/DI";
 import {Email, EmailProps} from "@module/email/model/Email";
 import {GMailService} from "@module/email/service/GMailService";
 

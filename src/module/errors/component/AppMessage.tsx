@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {MessageType, getAppErrorSeverity} from "@module/errors/model/MessageType";
+import {getAppErrorSeverity, MessageType} from "@module/errors/model/MessageType";
 import Alert, {AlertColor} from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import {Slide} from "@mui/material";
@@ -12,7 +12,7 @@ const withAppMessage = (WrappedComponent: any) => {
 
     return (props: any) => {
         const [isVisible, setIsVisible] = useState<boolean>(false)
-        const [errorType, setErrorType] = useState<MessageType>(MessageType.NONE)
+        const [errorType, setErrorType] = useState<MessageType>(MessageType.INFO)
         const [errorMessage, setErrorMessage] = useState<string>("")
 
         const displayAppMessage = (errorType: MessageType, errorMessage: string, visible: boolean = true) => {

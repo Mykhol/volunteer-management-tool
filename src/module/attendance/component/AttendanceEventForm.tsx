@@ -8,7 +8,7 @@ import {
     AttendanceEventType,
     getAttendanceEventTypeText
 } from "@module/attendance/model/AttendanceEvent";
-import {FormContainer, FormInputContainer} from "@common/component/container/FormUtil";
+import {FormContainer, FormInputContainer} from "@common/component/base-form/FormUtil";
 import useSWR from "swr";
 
 

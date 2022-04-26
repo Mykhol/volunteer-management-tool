@@ -3,7 +3,7 @@
  *
  * @param idToken
  */
-import {DI} from "@common/util/di/DI";
+import {DI} from "@common/di/DI";
 
 const authenticateUser = async (idToken: string) => {
 

@@ -1,7 +1,9 @@
 import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
 import {Member} from "@module/member/model/Member";
 import {useEffect, useState} from "react";
-import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
+import {DataGrid, GridColDef, GridRenderCellParams, GridRowsProp} from "@mui/x-data-grid";
+import {Avatar} from "@mui/material";
+import {TableContainer} from "@common/component/base-table/TableUtil";
 
 interface MemberTableProps extends CustomComponentProps {
     members: Member[]
@@ -33,17 +35,29 @@ const MemberTable = ({onRowClick = (member: Member) => {},...props}: MemberTable
 
     useEffect(() => {
         let tempColumns: GridColDef[] = [
-            { field: 'firstName', headerName: 'First name', width: 150 },
-            { field: 'lastName', headerName: 'Last name', width: 150 },
-            { field: 'email', headerName: 'Email', width: 250 },
+            {
+                field: 'photo',
+                headerName: '',
+                align: "center",
+                flex: 0,
+                renderCell: (params: GridRenderCellParams<{url: string, initials: string}>) => (
+                    <Avatar src={params.value.url} alt={params.value.initials}/>
+                )
+            },
+            { field: 'firstName', headerName: 'First name', flex: 1},
+            { field: 'lastName', headerName: 'Last name', flex: 1},
+            { field: 'email', headerName: 'Email', flex: 1},
+            { field: 'dateOfBirth', headerName: 'Date of Birth', flex: 1},
         ]
 
         let tempRows: GridRowsProp = membersData.map((member, count) => {
             return {
                 id: member.id,
+                photo: {url: member.picture, initials: member.firstName[0]+member.lastName[0] || "?"},
                 firstName: member.firstName,
                 lastName: member.lastName,
                 email: member.primaryEmail,
+                dateOfBirth: member.dateOfBirth,
             }
         })
 
@@ -55,9 +69,9 @@ const MemberTable = ({onRowClick = (member: Member) => {},...props}: MemberTable
 
     if (rows != null && columns != null) {
         return (
-            <div style={{ height: 600, width: '70%' }}>
+            <TableContainer style={{marginRight: "50px"}}>
                 <DataGrid rows={rows!!} columns={columns!!} sx={{borderColor: 'grey.A400'}} onRowClick={(member) => handleRowClick(member.id as string)}/>
-            </div>
+            </TableContainer>
         )
     }
 

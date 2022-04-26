@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {DI} from "@common/util/di/DI";
+import {DI} from "@common/di/DI";
 import {UserScope} from "@module/user/model/UserScope";
 
 /**

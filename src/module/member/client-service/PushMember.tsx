@@ -1,6 +1,6 @@
 import {Member} from "@module/member/model/Member";
 import {AppResponse} from "@module/network/model/AppResponse";
-import "@common/extensions"
+import "@common/util/extensions"
 
 
 const pushMember = async (member: Member): Promise<AppResponse<Member>> => {

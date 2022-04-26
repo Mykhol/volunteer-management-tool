@@ -1,7 +1,5 @@
 export enum MessageType {
 
-    NONE,
-
     ERROR,
 
     WARNING,
@@ -15,9 +13,6 @@ export enum MessageType {
 export const getAppErrorSeverity = (errorType: MessageType) : string => {
 
     switch (errorType) {
-        case MessageType.NONE:
-            return "️"
-
         case MessageType.ERROR:
             return "error"
 

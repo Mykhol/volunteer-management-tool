@@ -1,5 +1,5 @@
 import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
-import {FormContainer, FormInputContainer} from "@common/component/container/FormUtil";
+import {FormContainer, FormInputContainer} from "@common/component/base-form/FormUtil";
 import {Button, Checkbox, ListItemText, MenuItem, SelectChangeEvent, TextField} from "@mui/material";
 import {ChangeEvent, ChangeEventHandler, SetStateAction, useEffect, useState} from "react";
 import {Member} from "@module/member/model/Member";

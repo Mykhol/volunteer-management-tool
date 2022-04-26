@@ -1,9 +1,17 @@
 import styled from "styled-components";
-import {Skeleton} from "@mui/material";
+import {Paper} from "@mui/material";
 
-export const FormContainer = styled.div`
+export const FormContainer = styled(Paper).attrs(props => ({
+    elevation: props.elevation || 6
+}))`
+  
+  background: ${props => props.theme.palette.grey.A50};
 
+  border-radius: 15px;
+  height: min-content;
   width: 400px;
+  
+  padding: 20px;
 
   h2 {
     margin-bottom: 15px;

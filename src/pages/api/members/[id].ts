@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {DI} from "@common/util/di/DI";
+import {DI} from "@common/di/DI";
 import {Member} from "@module/member/model/Member";
 
 /**
