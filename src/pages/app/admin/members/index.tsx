@@ -1,6 +1,5 @@
 import AppPage from "@common/component/pages/AppPage";
 import MemberForm from "@module/member/component/MemberForm";
-import {Skeleton} from "@mui/material";
 import MemberTable from "@module/member/component/MemberTable";
 import {Member} from "@module/member/model/Member";
 import {useEffect, useState} from "react";
@@ -10,7 +9,7 @@ const MemberDataContainer = styled.div`
 
   width: 100%;
   height: 100vh;
-  
+
   display: flex;
   flex-direction: row;
 
@@ -50,7 +49,11 @@ const AdminMembersPage = () => {
         <AppPage>
             <MemberDataContainer>
                 <MemberTable members={members} onRowClick={(member) => setSelectedMember(member)} />
-                <MemberForm member={selectedMember} onDataUpdate={() => getMembers()}/>
+                <MemberForm member={selectedMember} onDataUpdate={() => {
+                    getMembers()
+                    setSelectedMember(null)
+                }
+                }/>
             </MemberDataContainer>
         </AppPage>
     )

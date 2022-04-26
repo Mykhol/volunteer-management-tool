@@ -4,7 +4,6 @@ import Gmail = gmail_v1.Gmail;
 import {Email} from "../model/Email";
 import {AppResponse} from "../../network/model/AppResponse";
 const path = require("path")
-import '@common/util/extensions'
 
 /**
  * A server-service used to access the Gmail API

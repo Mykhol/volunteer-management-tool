@@ -1,5 +1,5 @@
 import {DataModel} from "@module/firestore/model/DataModel";
-import "@common/util/extensions"
+import "../../../extensions"
 
 /**
  * Data class that represents a member of a volunteer organisation.

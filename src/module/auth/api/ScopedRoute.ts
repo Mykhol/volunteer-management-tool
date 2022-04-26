@@ -1,7 +1,7 @@
 import {UserScope} from "@module/user/model/UserScope";
 // eslint-disable-next-line @next/next/no-server-import-in-page
 import {NextRequest, NextResponse} from "next/server";
-import "@common/util/extensions"
+import "../../../extensions"
 
 /**
  * Takes a required scope, plus a request with a body that contains a firebase token. The method determines if the user

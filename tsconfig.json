@@ -26,8 +26,8 @@
       "@module/*": [
         "src/module/*"
       ],
-      "extensions": [
-        "src/common/extensions"
+      "@extensions": [
+        "src/extensions.ts"
       ]
     }
   },

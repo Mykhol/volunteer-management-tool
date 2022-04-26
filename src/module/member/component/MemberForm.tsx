@@ -28,8 +28,8 @@ const MemberForm = (props: MemberFormProps) => {
         update()
     }, [props.member])
 
-    const update = () => {
-        const newIsEditable = !props.member
+    const update = (setNewEditableTo?: boolean) => {
+        const newIsEditable =setNewEditableTo || !props.member
         setIsEditable(newIsEditable)
         setFirstName(newIsEditable ? "" : props.member?.firstName!!)
         setLastName(newIsEditable ? "" : props.member?.lastName!!)
@@ -53,10 +53,7 @@ const MemberForm = (props: MemberFormProps) => {
         fetch("/api/members", options).then((r) => {
             if (r.status.isSuccessful()) {
                 props.displayAppMessage(MessageType.SUCCESS, "Member created!")
-                setFirstName("")
-                setLastName("")
-                setPrimaryEmail("")
-                setDateOfBirth(new Date())
+                update(true)
             } else {
                 props.displayAppMessage(MessageType.ERROR,"Something went wrong!");
             }

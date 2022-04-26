@@ -1,91 +1,37 @@
-import {GetServerSidePropsContext} from "next";
-import {UserService} from "@module/user/service/UserService";
-import {FirebaseAdminService} from "@module/firestore/service/FirebaseAdminService";
-import {User} from "@module/user/model/User";
 import AppPage from "@common/component/pages/AppPage";
-import {useRouter} from "next/router";
-import {getUserScopeText} from "@module/user/model/UserScope";
-import styled from "@emotion/styled";
-import UserForm from "@common/component/form/old-form/UserForm";
-import {useState} from "react";
-import Table from "@common/component/tables/StyledTable";
-import classToDto from "@common/util/ClassToDto";
-import { Button } from "@mui/material";
+import {User} from "@module/user/model/User";
+import {useEffect, useState} from "react"
+import UserForm from "@module/user/component/UserForm";
+import "@extensions"
 
-interface UsersPageProps {
-    users: User[]
-}
+const UsersPage = () => {
 
+    const [users, setUsers] = useState<User[] | null>(null)
+    const [selectedUser, setAppUser] = useState<User | null>(null)
 
-const UsersContent = styled.div`
+    useEffect(() => {
+        getUsers()
+    }, [])
 
-  display: flex;
-  flex-direction: row;
-  align-items: start;
+    const getUsers = () => {
+        fetch("/api/users", {method: "GET"}).then(async (r) => {
+            if (r.status.isSuccessful()) {
+                const data: User[] = await r.json()
+                setUsers(data)
+            } else {
 
-  ${Table} {
-    margin-right: 100px;
-  }
-`
-
-const UsersPage = ({users} : UsersPageProps) => {
-
-    const router = useRouter()
-
-    const [appUser, setAppUser] = useState<User | null>(null)
-
-
-    const setUser = (id: string) => {
-        const selectedUser = users.find((user) => {
-            return user.id == id
-        }) || null
-
-        setAppUser(selectedUser)
+            }
+        })
     }
+
+    console.log(users)
 
     return (
         <AppPage>
-            <UsersContent>
-                <div>
-                    <Table>
-                        <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Scope</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {users.map((user) => {
-                            return (
-                                <tr id={"clickable"} key={user.id} onClick={() => setUser(user.id!!)}>
-                                    <td>{user.firstName}</td>
-                                    <td>{user.lastName}</td>
-                                    <td>{user.primaryEmail}</td>
-                                    <td>{user.scope?.map((scope) => {return (getUserScopeText(scope) + " | ")})}</td>
-                                </tr>
-                            )
-                        })}
-                        </tbody>
-                    </Table>
-                    <Button onClick={() => setAppUser(null)}>Create new user</Button>
-                </div>
-                <UserForm appUser={appUser} userSetState={setAppUser}/>
-            </UsersContent>
+            <UserForm />
+            {/*<UserTable />*/}
         </AppPage>
     )
 
 }
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-    const users = await new UserService(new FirebaseAdminService()).getAllUsers()
-
-    return {
-        props: {
-            users: classToDto(users)
-        }
-    }
-}
-
 export default UsersPage
