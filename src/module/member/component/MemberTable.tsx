@@ -1,8 +1,7 @@
 import {CustomComponentProps} from "@common/component/util/CustomComponentProps";
 import {Member} from "@module/member/model/Member";
 import {useEffect, useState} from "react";
-import {DataGrid, GridColDef, GridRowProps, GridRowsProp} from "@mui/x-data-grid";
-import {getVaccinationStatusText} from "@module/member/model/VaccinationStatus";
+import {DataGrid, GridColDef, GridRowsProp} from "@mui/x-data-grid";
 
 interface MemberTableProps extends CustomComponentProps {
     members: Member[]
@@ -37,7 +36,6 @@ const MemberTable = ({onRowClick = (member: Member) => {},...props}: MemberTable
             { field: 'firstName', headerName: 'First name', width: 150 },
             { field: 'lastName', headerName: 'Last name', width: 150 },
             { field: 'email', headerName: 'Email', width: 250 },
-            { field: 'vaccinationStatus', headerName: 'Vaccination Status', width: 200 },
         ]
 
         let tempRows: GridRowsProp = membersData.map((member, count) => {
@@ -46,7 +44,6 @@ const MemberTable = ({onRowClick = (member: Member) => {},...props}: MemberTable
                 firstName: member.firstName,
                 lastName: member.lastName,
                 email: member.primaryEmail,
-                vaccinationStatus: getVaccinationStatusText(member.vaccinationStatus)
             }
         })
 

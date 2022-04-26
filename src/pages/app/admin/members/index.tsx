@@ -1,16 +1,30 @@
 import AppPage from "@common/component/pages/AppPage";
 import MemberForm from "@module/member/component/MemberForm";
-import useSWR from "swr"
 import {Skeleton} from "@mui/lab";
+import MemberTable from "@module/member/component/MemberTable";
+import {Member} from "@module/member/model/Member";
+import {useEffect, useState} from "react";
 
 /**
  * Page to view and edit data of members.
  */
 const AdminMembersPage = () => {
 
-    const { data, error } = useSWR('/api/members')
+    const [members, setMembers] = useState<Member[] | null>(null)
 
-    if (!data) {
+    useEffect(() => {
+        fetch("/api/members", {method: "GET"}).then(async (r) => {
+            if (r.status.isSuccessful()) {
+                const data: Member[] = await r.json()
+                setMembers(data)
+            } else {
+
+            }
+        })
+    })
+
+
+    if (!members) {
         return (
             <Skeleton variant={"rectangular"} width={'100%'} height={800}/>
         )
@@ -19,7 +33,7 @@ const AdminMembersPage = () => {
     return (
         <AppPage>
             <MemberForm />
-            {/*<MemberTable members={} />*/}
+            <MemberTable members={members} />
         </AppPage>
     )
 }

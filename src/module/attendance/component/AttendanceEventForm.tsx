@@ -1,4 +1,4 @@
-import {Button, MenuItem, Skeleton, TextField} from "@mui/material";
+import {Button, MenuItem, TextField} from "@mui/material";
 import {DatePicker, LocalizationProvider, TimePicker} from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import {useState} from "react";
